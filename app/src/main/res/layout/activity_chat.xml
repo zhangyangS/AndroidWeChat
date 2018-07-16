@@ -23,9 +23,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="3"
+            android:background="#ffffff"
             android:src="@drawable/voice" />
 
         <EditText
+            android:id="@+id/message"
+            android:background="#ffffff"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
@@ -36,6 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:src="@drawable/send"
+            android:background="#ffffff"
 
             />
 
@@ -45,14 +49,13 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:src="@drawable/plus"
-
+            android:background="#ffffff"
             />
     </LinearLayout>
     <LinearLayout
-        android:gravity="top"
         android:id="@+id/chat_gone"
-        android:visibility="gone"
-        android:layout_marginTop="20dp"
+
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -62,17 +65,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:src="@drawable/picture"
+            android:background="#ffffff"
             />
+
         <ImageButton
-            android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:src="@drawable/camera"
+            android:background="#ffffff"
             />
         <ImageButton
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/video"/>
+            android:src="@drawable/video"
+            android:background="#ffffff"
+            />
     </LinearLayout>
 </LinearLayout>
