@@ -20,5 +20,5 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
--keep class com.hyphenate.** {*;}
--dontwarn  com.hyphenate.*
+#-keep class com.hyphenate.** {*;}
+#-dontwarn  com.hyphenate.*
