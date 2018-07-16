@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="#ffffff"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="20dp"
+        android:textColor="#000"
+        android:textSize="32sp"
+        android:text="账号登陆"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="账号"
+            android:textSize="25sp"
+            android:textColor="#000"
+            android:layout_marginStart="10dp"
+            />
+        
+        <EditText
+            android:id="@+id/login_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:layout_marginStart="20dp"
+            android:textSize="25sp"
+            android:hint="请输入账号"
+            />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#C0C0C0"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        ></View>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="密码"
+            android:textSize="25sp"
+            android:textColor="#000"
+            android:layout_marginStart="10dp"
+            />
+
+        <EditText
+            android:id="@+id/login_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:layout_marginStart="20dp"
+            android:textSize="25sp"
+            android:inputType="textPassword"
+            android:hint="请输入密码"
+            />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#C0C0C0"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        ></View>
+
+    <TextView
+        android:id="@+id/phono_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#330099"
+        android:text="用手机号登陆"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="30dp"
+        android:textSize="18sp"
+        />
+
+    <Button
+        android:id="@+id/login_button"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="40dp"
+        android:background="#00FF00"
+        android:text="登录"
+        android:textSize="25sp"
+        android:textColor="#C0C0C0"
+        />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        >
+
+        <TextView
+            android:id="@+id/find_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="找回密码"
+            android:textColor="#330099"
+            android:textSize="15sp"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="10dp"
+            />
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="32dp"
+            android:background="#C0C0C0"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="12dp"
+            ></View>
+
+        <TextView
+            android:id="@+id/urgent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="紧急冻结"
+            android:textColor="#330099"
+            android:textSize="15sp"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="10dp"
+            />
+        <View
+            android:layout_width="1px"
+            android:layout_height="32dp"
+            android:background="#C0C0C0"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="12dp"
+            ></View>
+
+        <TextView
+            android:id="@+id/safe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="安全中心"
+            android:textColor="#330099"
+            android:textSize="15sp"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="10dp"
+            />
+    </LinearLayout>
+
+
+
+</LinearLayout>
