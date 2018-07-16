@@ -1,5 +1,0 @@
-<<<<<<< HEAD
-这是测试,haihsihhihsofhsofhosdf
-=======
-这是测试，我是徐伟
->>>>>>> origin/master
