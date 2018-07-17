@@ -14,7 +14,6 @@
     android:layout_gravity="left"
     android:background="@drawable/chat_left"
     >
-
     <TextView
         android:id="@+id/left_msg"
         android:layout_width="wrap_content"
@@ -23,7 +22,20 @@
         android:layout_margin="10dp"
         />
 </LinearLayout>
-
+<LinearLayout
+    android:id="@+id/layout_date"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:visibility="visible"
+    android:layout_gravity="center"
+    >
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        />
+</LinearLayout>
     <LinearLayout
         android:id="@+id/right_layout"
         android:layout_width="wrap_content"
@@ -37,5 +49,17 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="2dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/take_photo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        >
+    <ImageView
+        android:id="@+id/take_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
     </LinearLayout>
 </LinearLayout>
