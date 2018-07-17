@@ -3,6 +3,7 @@
     package="com.example.administrator.androidwechat"
     android:versionCode="100"
     android:versionName="1.0.0">
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <!-- Required -->
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -60,9 +61,15 @@
 
         </activity>
         <activity android:name=".ChatActivity">
+
+        </activity>
+        <activity android:name=".RegisterActivity">
+
+        </activity>
+
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
