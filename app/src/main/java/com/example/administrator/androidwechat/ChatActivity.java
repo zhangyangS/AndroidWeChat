@@ -8,6 +8,8 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.ExifInterface;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.DocumentsContract;
@@ -45,6 +47,7 @@ public class ChatActivity extends AppCompatActivity {
     private ImageButton send;
     public static final int CHOOSE_PHOTO=2;
     private Uri imageUri;
+    private Uri uri;
     private List<Msg> msgList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -187,13 +190,22 @@ public class ChatActivity extends AppCompatActivity {
 
         @Override
         protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+            int degree=0;
             switch (requestCode){
                 case TAKE_PHOTO:
                     if(resultCode == RESULT_OK){
                         try {
                             Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
-                            Msg msg7 = new Msg(bitmap,Msg.TYPE_PHOTO);
-                            msgList.add(msg7);
+                            int h = bitmap.getHeight();
+                            int w = bitmap.getWidth();
+                            // 缩略图缩放的比例尺
+                            int THUMB_SIZE;
+                            THUMB_SIZE = 5;
+                            // 对原始图片Bitmap等比例缩小5倍的缩略图
+                            Bitmap bmp2 = ThumbnailUtils.extractThumbnail(bitmap, w / THUMB_SIZE, h
+                                    / THUMB_SIZE);
+                            Msg msg1 = new Msg(bmp2,Msg.TYPE_PHOTO);
+                            msgList.add(msg1);
                             msgAdapter.notifyItemInserted(msgList.size()-1);
                             msgRecyclerView.scrollToPosition(msgList.size()-1);
                         } catch (FileNotFoundException e) {
@@ -212,7 +224,6 @@ public class ChatActivity extends AppCompatActivity {
                     break;
                 default:
                     break;
-
             }
         }
         @TargetApi(19)
@@ -257,8 +268,16 @@ public class ChatActivity extends AppCompatActivity {
         private void displayImage(String imagePath){
             if(imagePath!=null){
                 Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
-                Msg msg6 = new Msg(bitmap,Msg.TYPE_PHOTO);
-                msgList.add(msg6);
+                int h = bitmap.getHeight();
+                int w = bitmap.getWidth();
+                // 缩略图缩放的比例尺
+                int THUMB_SIZE;
+                THUMB_SIZE = 1;
+                // 对原始图片Bitmap等比例缩小5倍的缩略图
+                Bitmap bmp2 = ThumbnailUtils.extractThumbnail(bitmap, w / THUMB_SIZE, h
+                        / THUMB_SIZE);
+                Msg msg2 = new Msg(bmp2,Msg.TYPE_PHOTO);
+                msgList.add(msg2);
                 msgAdapter.notifyItemInserted(msgList.size()-1);
                 msgRecyclerView.scrollToPosition(msgList.size()-1);
 

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+ >
+    <RelativeLayout
+
+
+        android:id="@+id/me1"
+        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/img1"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/img_1"/>
+
+        <TextView
+            android:id="@+id/nicheng"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:textSize="18dp"
+            android:layout_marginLeft="20dp"
+            android:textColor="@color/color1"
+            android:text="小提棋"
+            android:layout_toRightOf="@id/img1"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:hint="微信号:123456"
+            android:textSize="12dp"
+            android:layout_toRightOf="@id/img1"
+            android:layout_below="@id/nicheng"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/set_up"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/me1"
+        >
+
+        <ImageView
+            android:id="@+id/img2"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/img_2" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@id/img2"
+            android:layout_centerVertical="true"
+            android:text="设置"/>
+    </RelativeLayout>
+
+</RelativeLayout>
