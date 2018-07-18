@@ -34,6 +34,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         reg = (TextView) findViewById(R.id.register);
         reg.setOnClickListener(this);
 
+
     }
 
     @Override

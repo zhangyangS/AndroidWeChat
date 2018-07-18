@@ -23,14 +23,20 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.io.File;
@@ -43,6 +49,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     public static final int CHOOSE_PHOTO = 2;
 
     private Uri headUri;
+    //裁剪后图片返回码
+    private static final int CROP_PICTURE = 3;
+    //裁剪图片存放地址的Uri
+    private Uri cropImageUri;
     private SharedPreferences register_sp;
 
     private Button register;
@@ -56,7 +66,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         edt_nickname = (EditText) this.findViewById(R.id.register_nickname);
         edt_phone_num = (EditText) this.findViewById(R.id.register_phone_num);
         edt_password = (EditText) this.findViewById(R.id.register_pass);
-        //舰艇输入框
+        //监听输入框
         edt_nickname.addTextChangedListener(this);
         edt_phone_num.addTextChangedListener(this);
         edt_password.addTextChangedListener(this);
@@ -67,17 +77,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         //头像选择
         head_image = (ImageView) findViewById(R.id.pic_select);
         head_image.setOnClickListener(this);
-
-        // 新建一个File对象，用来存储拍照后的照片
-        File outputImage = new File("/storage/emulated/0/head_photo/output_image.jpg");
-        try {
-            if (!outputImage.exists()) {
-                outputImage.delete();
-            }
-            outputImage.createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
     }
 
@@ -111,8 +110,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 startActivity(loginIntent);
                 break;
             case R.id.pic_select:
-                //头像选择
-                Toast.makeText(this, "你在选择头像", Toast.LENGTH_SHORT).show();
+                setDialog();
+                break;
+            case R.id.btn_choose_img:
                 //查看是否拥有权限，没有则弹框询问是否赋予权限
                 if (ContextCompat.checkSelfPermission(RegisterActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                         != PackageManager.PERMISSION_GRANTED){
@@ -120,8 +120,52 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 }else {
                     openPhoto();
                 }
+                break;
+            case R.id.btn_open_camera:
+                // 新建一个File对象，用来存储拍照后的照片
+                //File outputImage = new File("/storage/emulated/0/head_photo/output_image.jpg");
+                File outputImage = new File("/storage/emulated/0","output_image.jpg");
+                try {
+                    if (!outputImage.exists()) {
+                        outputImage.delete();
+                    }
+                    outputImage.createNewFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+                    headUri = FileProvider.getUriForFile(RegisterActivity.this,"com.example.cameeralbumtest.fileprovider",outputImage);
+                }else {
+                    headUri = Uri.fromFile(outputImage);
+                }
+                Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+                intent.putExtra(MediaStore.EXTRA_OUTPUT,headUri);
+                startActivityForResult(intent,TAKE_PHOTO);
+                break;
         }
     }
+
+    private void setDialog() {
+        Dialog mCameraDialog = new Dialog(this, R.style.BottomDialog);
+        LinearLayout root = (LinearLayout) LayoutInflater.from(this).inflate(
+                R.layout.camera_layout, null);
+        //初始化视图
+        root.findViewById(R.id.btn_choose_img).setOnClickListener(this);
+        root.findViewById(R.id.btn_open_camera).setOnClickListener(this);
+        mCameraDialog.setContentView(root);
+        Window dialogWindow = mCameraDialog.getWindow();
+        dialogWindow.setGravity(Gravity.BOTTOM);
+        WindowManager.LayoutParams lp = dialogWindow.getAttributes(); // 获取对话框当前的参数值
+        lp.x = 0; // 新位置X坐标
+        lp.y = 0; // 新位置Y坐标
+        lp.width = (int) getResources().getDisplayMetrics().widthPixels; // 宽度
+        root.measure(0, 0);
+        lp.height = root.getMeasuredHeight();
+        lp.alpha = 9f; // 透明度
+        dialogWindow.setAttributes(lp);
+        mCameraDialog.show();
+    }
+
     public String getImagePath(Uri uri,String selection){
         String path = null;
         //通过Uri和selection来获取真实的图片路径
@@ -138,6 +182,17 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         switch (requestCode){
+            case TAKE_PHOTO:
+                if (resultCode == RESULT_OK){
+                    startPhotoZoom(headUri);
+                    try {
+                        Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(cropImageUri));
+                        head_image.setImageBitmap(bitmap);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
+                break;
             case CHOOSE_PHOTO:
                 if (resultCode == RESULT_OK){
                     //判断手机系统版本号
@@ -147,6 +202,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     }else {
                         handleImageBeforeKitKat(data);
                     }
+                }
+            case CROP_PICTURE:
+                try {
+                    Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(cropImageUri));
+                    head_image.setImageBitmap(bitmap);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
                 }
                 break;
             default:
@@ -193,40 +255,55 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             //如果是file类型的Uri，直接获取图片路径即可
             imagePath = uri.getPath();
         }
-        displayImage(imagePath);
+        startPhotoZoom(uri);
+
     }
 
     public void handleImageBeforeKitKat(Intent data){
         //直接将Uri传入，就能获取真实路径
         Uri uri = data.getData();
-        String imagePath = getImagePath(uri,null);
-        displayImage(imagePath);
+        startPhotoZoom(uri);
     }
 
 
     public void openPhoto(){
         Intent intent = new Intent("android.intent.action.GET_CONTENT");
-        intent.setType("image/;REQUEST_CODE_TAKE_PICTURE;");
+        intent.setType("image/*");
         //打开相册
         startActivityForResult(intent,CHOOSE_PHOTO);
     }
 
-    public void openCamera(){
-        Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-        intent.putExtra(MediaStore.EXTRA_OUTPUT,headUri);
-        //打开相机
-        startActivityForResult(intent,TAKE_PHOTO);
-    }
-
-
-    public void displayImage(String imagePath){
-        //将图片显示到界面上
-        if (imagePath != null){
-            Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
-            head_image.setImageBitmap(bitmap);
-        }else {
-            Toast.makeText(this, "获取图片失败", Toast.LENGTH_SHORT).show();
+    public void startPhotoZoom(Uri uri) {
+        File CropPhoto=new File("/storage/emulated/0","crop_image.jpg");
+        try{
+            if(CropPhoto.exists()){
+                CropPhoto.delete();
+            }
+            CropPhoto.createNewFile();
+        }catch(IOException e){
+            e.printStackTrace();
         }
+        cropImageUri=Uri.fromFile(CropPhoto);
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        intent.setDataAndType(uri, "image/*");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION); //添加这一句表示对目标应用临时授权该Uri所代表的文件
+        }
+        // 下面这个crop=true是设置在开启的Intent中设置显示的VIEW可裁剪
+        intent.putExtra("crop", "true");
+        intent.putExtra("scale", true);
+
+        intent.putExtra("aspectX", 1);
+        intent.putExtra("aspectY", 1);
+
+        intent.putExtra("outputX", 300);
+        intent.putExtra("outputY", 300);
+
+        intent.putExtra("return-data", false);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, cropImageUri);
+        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+        intent.putExtra("noFaceDetection", true); // no face detection
+        startActivityForResult(intent, CROP_PICTURE);
     }
 
 
