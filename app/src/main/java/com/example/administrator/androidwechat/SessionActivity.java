@@ -1,5 +1,7 @@
 package com.example.administrator.androidwechat;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -10,7 +12,7 @@ import java.util.List;
 
 public class SessionActivity extends AppCompatActivity{
     private List<Session> sessionList=new ArrayList<>();
-
+    private MyDatabaseHelper dbHelper;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -22,15 +24,15 @@ public class SessionActivity extends AppCompatActivity{
         listView.setAdapter(adapter);
     }
     private void initSession(){
-        Session a=new Session(R.drawable.session_image,"xuwei","你好吗");
-        sessionList.add(a);
-        Session b=new Session(R.drawable.session_image,"zhangyang","你好吗");
-        sessionList.add(b);
-        Session c=new Session(R.drawable.session_image,"chenxinyu","你好吗");
-        sessionList.add(c);
-        Session d=new Session(R.drawable.session_image,"moahanrong","你好吗");
-        sessionList.add(d);
-        Session e=new Session(R.drawable.session_image,"yangtiancheng","你好吗");
-        sessionList.add(e);
+        dbHelper=new MyDatabaseHelper(this,"Message.db",null,3);
+        SQLiteDatabase db=dbHelper.getWritableDatabase();
+        Cursor cursor=db.rawQuery("select nickName from Contact where 1=1",new String[]{});
+        while (cursor.moveToNext()){
+            String nickName=cursor.getString(cursor.getColumnIndex("nickName"));
+            Session a=new Session(R.drawable.session_image,nickName,"你好吗");
+            sessionList.add(a);
+        }
+
+
     }
 }
