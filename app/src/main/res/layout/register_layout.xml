@@ -116,6 +116,7 @@
             android:layout_marginStart="20dp"
             android:textSize="22sp"
             android:hint="请填写手机号"
+            android:inputType="number"
             />
     </LinearLayout>
     <View

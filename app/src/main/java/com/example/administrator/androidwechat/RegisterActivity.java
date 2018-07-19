@@ -5,10 +5,12 @@ import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -27,6 +29,7 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,6 +58,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private Uri cropImageUri;
     private SharedPreferences register_sp;
 
+    private MyDatabaseHelper register_contacts;
+    private String nick,pass,a;
+    private Long num;
+
     private Button register;
     private EditText edt_nickname,edt_phone_num,edt_password;
     private ImageView head_image;
@@ -77,6 +84,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         //头像选择
         head_image = (ImageView) findViewById(R.id.pic_select);
         head_image.setOnClickListener(this);
+
+        register_contacts = new MyDatabaseHelper(this,"Message.db",null,4);
+
 
     }
 
@@ -106,6 +116,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             case R.id.register_button:
                 //注册信息合法，跳转到登陆页面
                 Toast.makeText(this, "账号注册成功", Toast.LENGTH_SHORT).show();
+                nick = getText(edt_nickname);
+                a = getText(edt_phone_num);
+                pass = getText(edt_password);
+                Shared();
+                insert();
+                query();
                 Intent loginIntent = new Intent(RegisterActivity.this,MainActivity.class);
                 startActivity(loginIntent);
                 break;
@@ -143,6 +159,46 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 startActivityForResult(intent,TAKE_PHOTO);
                 break;
         }
+    }
+    private void Shared(){
+            SharedPreferences.Editor editor  = getSharedPreferences("user_data",MODE_PRIVATE).edit();
+            num = Long.parseLong(a);
+            editor.putLong("phone_num",num);
+            editor.putString("password",pass);
+            editor.commit();
+            Toast.makeText(this, "创建成功", Toast.LENGTH_SHORT).show();
+    }
+
+    private void insert(){
+        SQLiteDatabase db = register_contacts.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        num = Long.parseLong(a);
+        try {
+            values.put("nickName",nick);
+            values.put("phoneNum",num);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+        values.put("imgUrl",cropImageUri.toString());
+        db.insert("Contact",null,values);
+    }
+    private void query(){
+        SQLiteDatabase db = register_contacts.getWritableDatabase();
+        Cursor cursor = db.query("Contact",null,null,null,null,null,null);
+        if (cursor.moveToFirst()){
+            do {
+                String nickN = cursor.getString(cursor.getColumnIndex("nickName"));
+                Long phone_num = cursor.getLong(cursor.getColumnIndex("phoneNum"));
+                String uri = cursor.getString(cursor.getColumnIndex("imgUrl"));
+                Log.d("RegisterActivity", nickN + ","+ phone_num + "," + uri);
+            }while (cursor.moveToNext());
+        }
+        cursor.close();
+    }
+
+    private String getText(EditText Text){
+        String get = Text.getText().toString().trim();
+        return get;
     }
 
     private void setDialog() {
@@ -305,6 +361,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         intent.putExtra("noFaceDetection", true); // no face detection
         startActivityForResult(intent, CROP_PICTURE);
     }
+
 
 
 }
