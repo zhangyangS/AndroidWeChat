@@ -1,18 +1,228 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </android.support.v4.view.ViewPager>
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#fff"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#ccc"/>
+
+        <LinearLayout
+            android:baselineAligned="false"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!--chats-->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:onClick="chatsClick">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/chats_icon_select"
+                        android:layout_width="30dp"
+                        android:layout_height="25dp"
+                        android:background="@mipmap/chats_green"/>
+
+                    <ImageView
+                        android:id="@+id/chats_icon_normal"
+                        android:layout_width="30dp"
+                        android:layout_height="25dp"
+                        android:background="@mipmap/chats"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/chats_text_select"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="微信"
+                        android:textSize="12sp"
+                        android:textColor="#51c650"/>
+
+                    <TextView
+                        android:id="@+id/chats_text_normal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="微信"
+                        android:textSize="12sp"
+                        android:textColor="#999999"/>
+                </RelativeLayout>
+            </LinearLayout>
+
+            <!--contacts-->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:onClick="contactsClick">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/contacts_icon_select"
+                        android:layout_width="30dp"
+                        android:layout_height="25dp"
+                        android:background="@mipmap/contacts_green"/>
+
+                    <ImageView
+                        android:id="@+id/contacts_icon_normal"
+                        android:layout_width="30dp"
+                        android:layout_height="25dp"
+                        android:background="@mipmap/contacts"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/contacts_text_select"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="联系人"
+                        android:textSize="12sp"
+                        android:textColor="#51c650"/>
+
+                    <TextView
+                        android:id="@+id/contacts_text_normal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="联系人"
+                        android:textSize="12sp"
+                        android:textColor="#999999"/>
+                </RelativeLayout>
+            </LinearLayout>
+
+            <!--discover-->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:onClick="discoverClick">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/discover_icon_select"
+                        android:layout_width="30dp"
+                        android:layout_height="25dp"
+                        android:background="@mipmap/discover_green"/>
+
+                    <ImageView
+                        android:id="@+id/discover_icon_normal"
+                        android:layout_width="30dp"
+                        android:layout_height="25dp"
+                        android:background="@mipmap/discover"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/discover_text_select"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="发现"
+                        android:textSize="12sp"
+                        android:textColor="#51c650"/>
+
+                    <TextView
+                        android:id="@+id/discover_text_normal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="发现"
+                        android:textSize="12sp"
+                        android:textColor="#999999"/>
+                </RelativeLayout>
+            </LinearLayout>
+
+            <!--me-->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:onClick="meClick">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/me_icon_select"
+                        android:layout_width="30dp"
+                        android:layout_height="25dp"
+                        android:background="@mipmap/about_me_green"/>
+
+                    <ImageView
+                        android:id="@+id/me_icon_normal"
+                        android:layout_width="30dp"
+                        android:layout_height="25dp"
+                        android:background="@mipmap/about_me"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/me_text_select"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="我"
+                        android:textSize="12sp"
+                        android:textColor="#51c650"/>
+
+                    <TextView
+                        android:id="@+id/me_text_normal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="我"
+                        android:textSize="12sp"
+                        android:textColor="#999999"/>
+                </RelativeLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

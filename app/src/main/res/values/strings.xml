@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">AndroidWeChat</string>
+    <string name="group_chat">发起群聊</string>
+    <string name="add_friend">添加朋友</string>
+    <string name="scan">扫一扫</string>
+    <string name="gather_payment">收付款</string>
 </resources>

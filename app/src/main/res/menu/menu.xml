@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
+
+    <item
+        android:id="@+id/search"
+        android:icon="@drawable/aba"
+        android:orderInCategory="100"
+        app:actionViewClass="android.widget.SearchView"
+        app:showAsAction="ifRoom|collapseActionView"
+        android:title=""/>
+
+    <item
+        android:id="@+id/more"
+        android:icon="@drawable/actionbar_add_icon"
+        android:orderInCategory="100"
+        app:actionProviderClass="com.example.cristiano.provider.MyActionProvider"
+        app:showAsAction="ifRoom"
+        android:title=""/>
+
+</menu>
