@@ -6,6 +6,14 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="android:itemBackground">@color/more_bg</item>
+        <item name="android:itemTextAppearance">@style/WeChatActionBarOverflow</item>
+    </style>
+
+    <style name="WeChatActionBarOverflow" parent="@android:style/Widget.ActionButton.Overflow">
+        <item name="android:textSize">16sp</item>                          <!--submenu中字体大小-->
+        <item name="android:textColor">#ffffff</item>                      <!--submenu中字体颜色-->
     </style>
 
     <style name="BottomDialog" parent="@android:style/Theme.Dialog">
