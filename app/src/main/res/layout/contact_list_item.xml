@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/img"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/chathead"
+        />
+    <TextView
+        android:id="@+id/nikname"
+        android:layout_width="match_parent"
+        android:layout_height= "wrap_content"
+        android:text="昵称"
+        android:textSize="40dp"
+        android:layout_toRightOf="@id/img"
+        />
+
+
+</RelativeLayout>
