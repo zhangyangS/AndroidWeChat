@@ -62,6 +62,7 @@
         <activity android:name=".ChatActivity">
 
         </activity>
+
         <activity android:name=".SessionActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -69,9 +70,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".DataTestActivity">
 
         </activity>
+
+        <activity android:name=".MsgAlert" />
+        <activity android:name=".MsgNotification" />
+
         <provider
             android:authorities="com.example.com.example.administrator.androidwechat.provider"
             android:name=".WeChatProvider"
